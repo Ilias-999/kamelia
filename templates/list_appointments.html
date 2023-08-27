@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upcoming Appointments</title>
+    <style>
+    .appointment {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+</head>
+<body>
+    <h1>Upcoming Appointments</h1>
+
+    {% for appointment in upcoming_appointments %}
+    <div class="appointment">
+        <h2>{{ appointment.client.name }}</h2>
+        <h4>{{ appointment.client.phone_number }}</h4>
+        <p>Appointment Date and Time: {{ appointment.appointment_date_time }}</p>
+        <p>Service: {{ appointment.service.name }}</p>
+        <form action="{% url 'app:delete_appointment' appointment.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+    {% endfor %}
+</body>
+</html>

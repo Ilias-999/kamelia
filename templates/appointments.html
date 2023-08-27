@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        .hide{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Date Input Form</h1>
+    <form action="" id="appointments" method="post">
+        {% csrf_token %}
+
+        <label for="selected_date">Select a Date:</label>
+        <input type="date" id="selected_date" name="selected_date" required>
+
+        <label for="service">Select a Service:</label>
+        <select id="service" name="selectedService" required>
+            <option value="" disabled selected>Select a service</option>
+            {% for service in services %}
+                <option value="{{ service.id }}">{{ service.name }} - {{ service.timing }} Minutes</option>
+            {% endfor %}
+        </select><br>
+
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+
+
+
+    <div id="choose-appointments" class="">
+    </div>
+
+    <form action="" id="client" method="post" class="hide">
+        {% csrf_token %}
+        <h3 id="display-time"></h3>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="telephone">Telephone:</label>
+        <input type="tel" id="telephone" name="telephone" required pattern="\d{10,}" title="Please enter at least 10 digits"><br>
+
+
+
+        <button type="submit">Submit</button>
+    </form>
+
+
+</body>
+
+<script src="{% static 'js/appointments.js' %} "></script>
+
+</html>
